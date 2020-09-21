@@ -46,8 +46,20 @@ export default class Instagram extends Component {
   };
   updateAvatarFromInput = async (e) => {
     console.log(document.querySelector(".editInput").value);
+    const name = document.querySelector(".editInput").value;
     const id = e.target.parentElement.parentElement.getAttribute("data-key");
     // console.log(id);
+    await axios.put(
+      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers/${id}`,
+      { name: name }
+    );
+    const followers = await axios.get(
+      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers`
+    );
+    this.setState({ followers: followers.data }, () => {});
+    document.querySelector(".followersName").style.display = "block";
+    document.querySelector(".editInput").style.display = "none";
+    document.querySelector(".editunputBTN").style.display = "none";
   };
   render() {
     const myFollowers = this.state.followers.map((element) => {
