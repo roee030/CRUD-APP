@@ -9,6 +9,7 @@
   border: 0.3px solid black;
   display: flex;
   height: 30px;
+  justify-content: space-between;
 }
 .followers > img {
   height: 100%;
@@ -25,4 +26,16 @@ form {
 button {
   margin: 0 auto;
   display: block;
+}
+.tools {
+  display: flex;
+}
+.editInput {
+  display: none;
+}
+.editunputBTN {
+  display: none;
+}
+.editAvatarName {
+  display: flex;
 }

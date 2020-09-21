@@ -29,15 +29,46 @@ export default class Instagram extends Component {
     );
   };
   deleteAvatar = async (e) => {
-    console.log(e.target.key);
+    const id = e.target.parentElement.parentElement.getAttribute("data-key");
+    const deleteNode = await axios.delete(
+      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers/${id}`
+    );
+    const followers = await axios.get(
+      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers`
+    );
+    this.setState({ followers: followers.data }, () => {});
+  };
+  updateAvatar = async (e) => {
+    console.log(e.target.parentElement.parentElement);
+    document.querySelector(".followersName").style.display = "none";
+    document.querySelector(".editInput").style.display = "block";
+    document.querySelector(".editunputBTN").style.display = "block";
+  };
+  updateAvatarFromInput = async (e) => {
+    console.log(document.querySelector(".editInput").value);
+    const id = e.target.parentElement.parentElement.getAttribute("data-key");
+    // console.log(id);
   };
   render() {
     const myFollowers = this.state.followers.map((element) => {
       return (
-        <div className="followers" key={element.id}>
+        <div className="followers" data-key={element.id} key={element.id}>
           <img src={element.avatar}></img>
-          {element.name}
-          <button onClick={this.deleteAvatar}>trash</button>
+          <div className="followersName">{element.name}</div>
+          <div className="editAvatarName">
+            <input className="editInput" type="text"></input>
+            <button
+              className="editunputBTN"
+              onClick={this.updateAvatarFromInput}
+            >
+              Boom
+            </button>
+          </div>
+
+          <div className="tools">
+            <button onClick={this.deleteAvatar}>trash</button>
+            <button onClick={this.updateAvatar}>edit</button>
+          </div>
         </div>
       );
     });
