@@ -12,6 +12,7 @@
 }
 .followers > img {
   height: 100%;
+  width: 2rem;
 }
 .followersTitle {
   text-align: center;

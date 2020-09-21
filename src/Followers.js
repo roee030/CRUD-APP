@@ -16,7 +16,8 @@ export default class Instagram extends Component {
   };
   handleOnClick = async () => {
     const newAvatar = await axios.post(
-      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers?name=${this.state.name}&src=${this.state.src}`
+      `https://5f636146363f0000162d8949.mockapi.io/ra/v1/followers?`,
+      { name: this.state.name, avatar: this.state.src }
     );
     this.setState(
       (prevState) => ({
@@ -27,13 +28,16 @@ export default class Instagram extends Component {
       }
     );
   };
-
+  deleteAvatar = async (e) => {
+    console.log(e.target.key);
+  };
   render() {
     const myFollowers = this.state.followers.map((element) => {
       return (
         <div className="followers" key={element.id}>
           <img src={element.avatar}></img>
           {element.name}
+          <button onClick={this.deleteAvatar}>trash</button>
         </div>
       );
     });
